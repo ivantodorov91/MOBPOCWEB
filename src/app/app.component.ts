@@ -11,11 +11,7 @@ export class AppComponent {
   title = 'GroupyfyWeb';
   table: { label: string, value: string }[];
 
-  constructor(private readonly authService: AuthenticationService, private readonly titleService: Title) {
+  constructor(private readonly titleService: Title) {
     this.titleService.setTitle(this.title);
-
-    this.authService.userManager.getUser()
-    .then(user => console.log(user))
-    .catch(e => console.log(e));
   }
 }

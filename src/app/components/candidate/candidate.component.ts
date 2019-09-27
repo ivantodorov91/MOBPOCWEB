@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/core/authentication.service';
 
 @Component({
   selector: 'app-candidate',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CandidateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.authService.userManager.getUser()
+    .then(user => console.log(user))
+    .catch(e => console.log(e));
   }
 
 }

@@ -9,8 +9,11 @@ const routes: Routes = [
   { path: '', component: AdminComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'hr', component: HrComponent },
-  { path: 'candidate', component: CandidateComponent,
-    children: [{ path: 'login', component: CandidateLoginComponent }]
+  { path: 'candidate',
+    children: [
+      { path: '', component: CandidateComponent },
+      { path: 'login', component: CandidateLoginComponent}
+    ]
   }
 ];
 

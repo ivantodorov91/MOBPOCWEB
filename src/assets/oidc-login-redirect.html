@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <img
+      style="height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;"
+      id="background-image"
+      src="../../../assets/confetti.jpg"
+    />
+
+    <div id="error"></div>
+
+
+    <script src="oidc-client.min.js"></script>
+
+    <script>
+      window.history.replaceState = function (){ console.log('Empty stub for history.replaceState()') };
+    </script>
+    <script>
+      Log.logger = console;
+      new UserManager()
+        .signinRedirectCallback()
+        .then(function(user) {
+          if (user == null) {
+            document.getElementById("waiting").style.display = "none";
+            document.getElementById("error").innerText =
+              "No sign-in request pending.";
+          } else {
+            if (user.profile.role == "System Admin") {
+              window.location = "/#/admin";
+            } else if (user.profile.role == "HR Admin") {
+              window.location = "/#/hr";
+            } else if (user.profile.role == "Candidate") {
+              window.location = "/#/candidate";
+            } 
+          }
+        })
+        .catch(function(er) {
+          document.getElementById("waiting").style.display = "none";
+          document.getElementById("error").innerText = er.message;
+        });
+    </script>
+    <script>
+      window.onload = function(){
+        setInterval(function(){
+          window.location = "/";
+        }, 10000);
+      };
+    </script>
+  </body>
+</html>

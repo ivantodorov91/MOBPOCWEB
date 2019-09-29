@@ -10,8 +10,15 @@ export class AdminComponent implements OnInit {
 
   constructor(private readonly authService: AuthenticationService) {
     this.authService.userManager.getUser()
-    .then(user => console.log(user))
-    .catch(e => console.log(e));
+    .then(user => {
+      if (!user) {
+        this.authService.userManager.signinRedirect()
+      }
+
+    })
+    .catch(e => {
+      console.log(e);
+    });
   }
 
   ngOnInit() {

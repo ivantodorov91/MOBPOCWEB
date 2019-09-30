@@ -13,20 +13,24 @@ export class CandidateLoginComponent implements OnInit {
   userId: string;
   offerId: string;
   token: string;
+  corporateId: string;
 
   constructor(private readonly authService: AuthenticationService, private readonly route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
       this.routeParams = { ...params.keys, ...params };
-      this.userId = this.routeParams.params.userId;
-      this.offerId = this.routeParams.params.offerId;
+      this.userId = this.routeParams.params.userid;
+      this.offerId = this.routeParams.params.offerid;
       this.token = this.routeParams.params.token;
-
+      this.corporateId = this.routeParams.params.corporateid;
       const redirectParams = {
-        userId: this.userId,
-        offerId: this.offerId,
-        token: this.token
+        extraQueryParams: {
+          userId: this.userId,
+          offerId: this.offerId,
+          token: this.token,
+          corporateId: this.corporateId
+        }
       };
 
       this.authService.userManager.signinRedirect(redirectParams)
@@ -34,5 +38,4 @@ export class CandidateLoginComponent implements OnInit {
       .catch(e => console.log(e));
     });
   }
-
 }

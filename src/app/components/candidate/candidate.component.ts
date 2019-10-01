@@ -11,9 +11,7 @@ export class CandidateComponent implements OnInit {
   constructor(private readonly authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authService.userManager.getUser()
-    .then(user => console.log(user))
-    .catch(e => console.log(e));
+
   }
 
 }

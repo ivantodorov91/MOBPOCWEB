@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'GroupyfyWeb';
   table: { label: string, value: string }[];
 
-  constructor(private readonly titleService: Title, private readonly storage: StoreService) {
+  constructor(private readonly titleService: Title, private readonly storage: StoreService, private readonly authService: AuthenticationService) {
     this.titleService.setTitle(this.title);
   }
 
@@ -20,7 +20,20 @@ export class AppComponent implements OnInit {
     this.fillTable();
   }
 
+  changeRole()
+  {
+    const redirectParams = {
+      extraQueryParams: {
+        role: "HR Admin",
+        corporateId: "4BE19F26-ABBD-46AB-8572-71946A878EF9"
+      }
+    };
+
+    this.authService.userManager.signinRedirect(redirectParams);
+  }
+
   private fillTable() {
+    debugger;
     const user = this.storage.getStoredData();
     if (user) {
       this.table = [];
